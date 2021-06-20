@@ -106,6 +106,10 @@
 		0A3666F4267F3BCB00314F6C /* App */ = {
 			isa = PBXGroup;
 			children = (
+				0A925099267F7934002E113E /* Flows */,
+				0A925097267F791F002E113E /* Assambly */,
+				0A925096267F7915002E113E /* Entity */,
+				0A925095267F7908002E113E /* BussinessLoginc */,
 				0A3666E0267F3B6C00314F6C /* AppDelegate.swift */,
 				0A3666E2267F3B6C00314F6C /* SceneDelegate.swift */,
 			);
@@ -152,6 +156,34 @@
 				0A36670E267F3E4B00314F6C /* Info.plist */,
 			);
 			path = GBStoreUITests;
+			sourceTree = "<group>";
+		};
+		0A925095267F7908002E113E /* BussinessLoginc */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BussinessLoginc;
+			sourceTree = "<group>";
+		};
+		0A925096267F7915002E113E /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		0A925097267F791F002E113E /* Assambly */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Assambly;
+			sourceTree = "<group>";
+		};
+		0A925099267F7934002E113E /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Flows;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
