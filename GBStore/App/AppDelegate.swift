@@ -6,14 +6,37 @@
 //
 
 import UIKit
+import Swinject
+import Alamofire
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
+    let requestFactory = RequestFactory()
+    
+    let container: Container = {
+        let container = Container()
+        
+        container.register(AbstractErrorParser.self) { _ in ErrorParser() }
+        container.register(AuthRequestFactory.self) { (_, errorParser: AbstractErrorParser, session: Session, queue: DispatchQueue) in
+            return Auth(errorParser: errorParser, sessionManager: session, queue: queue)
+        }
+        
+        return container
+    }()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let auth = requestFactory.makeAuthRequestFatory()
+        auth.login(userName: "Somebody", password: "mypassword") { response in
+            switch response.result {
+            case .success(let login):
+                print(login)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
         return true
     }
 
