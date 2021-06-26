@@ -15,11 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let requestFactory = RequestFactory()
     
     let container: Container = {
+        let configuration = Configuration()
         let container = Container()
         
         container.register(AbstractErrorParser.self) { _ in ErrorParser() }
-        container.register(AuthRequestFactory.self) { (_, errorParser: AbstractErrorParser, session: Session, queue: DispatchQueue) in
-            return Auth(errorParser: errorParser, sessionManager: session, queue: queue)
+        container.register(UserRequestFactory.self) { (_, errorParser: AbstractErrorParser, session: Session, queue: DispatchQueue) in
+            return User(errorParser: errorParser, sessionManager: session, queue: queue, configurtation: configuration)
         }
         
         return container
@@ -27,8 +28,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let auth = requestFactory.makeAuthRequestFatory()
-        auth.login(userName: "Somebody", password: "mypassword") { response in
+        let user = requestFactory.makeUserRequestFatory()
+        
+        // registration
+        user.create(model: CreateUserRequest(
+                        username: "username",
+                        password: "pass",
+                        email: "user@example.com",
+                        gender: .male,
+                        creditCard: "0000-0000-0000-0000",
+                        bio: "Funny guy")
+        ) { response in
+            switch response.result {
+            case .success(let user):
+                print(user)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+        user.login(model: LoginRequest(userName: "username", password: "password")) { response in
             switch response.result {
             case .success(let login):
                 print(login)
@@ -36,6 +55,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print(error.localizedDescription)
             }
         }
+        
+        user.update(model: UpdateUserRequest(
+                        id: 123,
+                        username: "username1",
+                        password: "password1",
+                        email: "user1@example.com",
+                        gender: .female,
+                        creditCard: "1111-1111-1111-1111",
+                        bio: "Funny girl")
+        ) { response in
+            switch response.result {
+            case .success(let user):
+                print(user)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+        user.logout(completionHandler: { response in
+            switch response.result {
+            case .success(let logout):
+                print(logout)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
+        
+        
         
         return true
     }

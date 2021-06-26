@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct User: Codable {
+enum UserGender: String {
+    case male = "m"
+    case female = "g"
+}
+
+struct UserResponse: Codable {
     let id: Int
     let login: String
     let name: String

@@ -25,9 +25,9 @@ class RequestFactory {
     
     let sessionQueue = DispatchQueue.global(qos: .utility)
     
-    func makeAuthRequestFatory() -> AuthRequestFactory {
+    func makeUserRequestFatory() -> UserRequestFactory {
         return (UIApplication.shared.delegate as! AppDelegate).container.resolve(
-            AuthRequestFactory.self,
+            UserRequestFactory.self,
             arguments: makeErrorParser(), commonSession, sessionQueue
         )!
     }
