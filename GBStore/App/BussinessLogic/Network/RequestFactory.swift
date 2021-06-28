@@ -31,4 +31,11 @@ class RequestFactory {
             arguments: makeErrorParser(), commonSession, sessionQueue
         )!
     }
+    
+    func makeProductRequestFactory() -> ProductRequestFactory {
+        return (UIApplication.shared.delegate as! AppDelegate).container.resolve(
+            ProductRequestFactory.self,
+            arguments: makeErrorParser(), commonSession, sessionQueue
+        )!
+    }
 }
