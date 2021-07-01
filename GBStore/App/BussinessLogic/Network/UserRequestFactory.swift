@@ -10,7 +10,7 @@ import Alamofire
 
 protocol UserRequestFactory {
     func login(model: LoginRequest, completionHandler: @escaping (AFDataResponse<LoginResponse>) -> Void)
-    func logout(completionHandler: @escaping (AFDataResponse<LogoutResponse>) -> Void)
+    func logout(userId: Int, completionHandler: @escaping (AFDataResponse<LogoutResponse>) -> Void)
     func create(model: CreateUserRequest, completionHandler: @escaping (AFDataResponse<CreateUserResponse>) -> Void)
     func update(model: UpdateUserRequest, completionHandler: @escaping (AFDataResponse<UpdateUserResponse>) -> Void)
 }
@@ -45,8 +45,8 @@ extension User: UserRequestFactory {
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
-    func logout(completionHandler: @escaping (AFDataResponse<LogoutResponse>) -> Void) {
-        let requestModel = Logout(baseUrl: baseUrl)
+    func logout(userId: Int, completionHandler: @escaping (AFDataResponse<LogoutResponse>) -> Void) {
+        let requestModel = Logout(baseUrl: baseUrl, userId: userId)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
@@ -54,33 +54,38 @@ extension User: UserRequestFactory {
 extension User {
     struct Login: RequestRouter {
         let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "login.json"
+        let method: HTTPMethod = .post
+        let path: String = "user/auth"
         
         let model: LoginRequest
         
         var parameters: Parameters? {
             return [
                 "username": model.userName,
-                "password": model.password
+                "password": model.password,
+                "cookies": "123"
             ]
         }
     }
     
     struct Logout: RequestRouter {
         let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "logout.json"
+        let method: HTTPMethod = .post
+        let path: String = "user/logout"
+        
+        let userId: Int
         
         var parameters: Parameters? {
-            return nil
+            return [
+                "id_user": userId
+            ]
         }
     }
     
     struct CreateUser: RequestRouter {
         let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "registerUser.json"
+        let method: HTTPMethod = .post
+        let path: String = "user/create"
         
         let model: CreateUserRequest
         
@@ -92,14 +97,15 @@ extension User {
                 "gender": model.gender.rawValue,
                 "credit_card" : model.creditCard,
                 "bio" : model.bio,
+                "id_user": 123
             ]
         }
     }
     
     struct UpdateUser: RequestRouter {
         let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "changeUserData.json"
+        let method: HTTPMethod = .post
+        let path: String = "user/update"
         
         let model: UpdateUserRequest
         

@@ -49,7 +49,8 @@ class UserRequestFactoryTest: XCTestCase {
     func testLogout() {
         let expectation = expectation(description: "Logout")
         let user = getUserRequestFactory()
-        user.logout { response in
+        
+        user.logout(userId: 123) { response in
             switch response.result {
             case .success(_):
                 expectation.fulfill()

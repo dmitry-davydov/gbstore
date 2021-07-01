@@ -32,7 +32,7 @@ class ProductRequestFactoryTest: XCTestCase {
         let expectation = expectation(description: "All Products")
         let product = getProductRequestFactory()
         
-        product.all(page: 0, offset: 20) { response in
+        product.all(page: 0, categoryId: 1) { response in
             switch response.result {
             case .success(_):
                 expectation.fulfill()

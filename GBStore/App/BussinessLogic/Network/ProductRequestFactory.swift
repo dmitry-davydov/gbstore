@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 protocol ProductRequestFactory {
-    func all(page: Int, offset: Int, completionHandler: @escaping(AFDataResponse<ProductListResponse>) -> Void)
+    func all(page: Int, categoryId: Int, completionHandler: @escaping(AFDataResponse<ProductListResponse>) -> Void)
     func one(id: ProductID, completionHandler: @escaping(AFDataResponse<ProductResponse>) -> Void)
 }
 
@@ -28,8 +28,8 @@ class Product: AbstractRequestFactory {
 }
 
 extension Product: ProductRequestFactory {
-    func all(page: Int = 0, offset: Int = 20, completionHandler: @escaping (AFDataResponse<ProductListResponse>) -> Void) {
-        let requestModel = AllRequest(baseUrl: baseUrl, page: page, offset: offset)
+    func all(page: Int = 0, categoryId: Int, completionHandler: @escaping (AFDataResponse<ProductListResponse>) -> Void) {
+        let requestModel = AllRequest(baseUrl: baseUrl, page: page, categoryId: categoryId)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
@@ -42,24 +42,24 @@ extension Product: ProductRequestFactory {
 extension Product {
     struct AllRequest: RequestRouter {
         let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "catalogData.json"
+        let method: HTTPMethod = .post
+        let path: String = "product/all"
         
         let page: Int
-        let offset: Int
+        let categoryId: Int
         
         var parameters: Parameters? {
             return [
-                "page": page,
-                "offset": offset
+                "page_number": page,
+                "id_category": categoryId
             ]
         }
     }
     
     struct ProductRequest: RequestRouter {
         let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "getGoodById.json"
+        let method: HTTPMethod = .post
+        let path: String = "product/one"
         
         let productId: ProductID
         

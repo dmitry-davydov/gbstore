@@ -8,5 +8,5 @@
 import Foundation
 
 class Configuration {
-    public var baseURL: URL = URL(string: "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/")!
+    public var baseURL: URL = URL(string: "https://aqueous-sea-42119.herokuapp.com/")!
 }
