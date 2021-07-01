@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "2FE0A9A0-907D-4B98-BCD2-90CDA458AC6A",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:GBStore.xcodeproj",
+          "identifier" : "0A3666DC267F3B6C00314F6C",
+          "name" : "GBStore"
+        }
+      ]
+    },
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:GBStore.xcodeproj",
+      "identifier" : "0A3666DC267F3B6C00314F6C",
+      "name" : "GBStore"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:GBStore.xcodeproj",
+        "identifier" : "0A3666FB267F3E3600314F6C",
+        "name" : "GBStoreTests"
+      }
+    }
+  ],
+  "version" : 1
+}
