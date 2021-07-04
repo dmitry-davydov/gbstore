@@ -11,6 +11,7 @@ import Alamofire
 protocol ProductRequestFactory {
     func all(page: Int, categoryId: Int, completionHandler: @escaping(AFDataResponse<ProductListResponse>) -> Void)
     func one(id: ProductID, completionHandler: @escaping(AFDataResponse<ProductResponse>) -> Void)
+    
 }
 
 class Product: AbstractRequestFactory {

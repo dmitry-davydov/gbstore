@@ -18,6 +18,7 @@ class ViewController: UIViewController {
         
         let userRequestFactory = requestFactory.makeUserRequestFatory()
         let productRequestFactory = requestFactory.makeProductRequestFactory()
+        let reviewsRequestFatory = requestFactory.makeReviewsRequestFavotory()
         
         userCreate(userRequestFactory: userRequestFactory)
         userUpdate(userRequestFactory: userRequestFactory)
@@ -26,6 +27,11 @@ class ViewController: UIViewController {
         
         productAll(productRequestFactory: productRequestFactory)
         productOne(productRequestFactory: productRequestFactory)
+        
+        reviewCreate(requestFactory: reviewsRequestFatory)
+        reviewList(requestFactory: reviewsRequestFatory)
+        reviewAppove(requestFactory: reviewsRequestFatory)
+        reviewDelete(requestFactory: reviewsRequestFatory)
     }
     
     func userCreate(userRequestFactory: UserRequestFactory) {
@@ -102,6 +108,54 @@ class ViewController: UIViewController {
             switch response.result {
             case .success(let product):
                 print(product)
+                break
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func reviewCreate(requestFactory: ReviewsRequestFactory) {
+        requestFactory.create(model: CreateReviewModel(userId: 1, text: "hui", productId: 1)) { response in
+            switch response.result {
+            case .success(let response):
+                print(response)
+                break
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func reviewDelete(requestFactory: ReviewsRequestFactory) {
+        requestFactory.delete(commentId: 1) { response in
+            switch response.result {
+            case .success(let response):
+                print(response)
+                break
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func reviewList(requestFactory: ReviewsRequestFactory) {
+        requestFactory.list(page: 0) { response in
+            switch response.result {
+            case .success(let response):
+                print(response)
+                break
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func reviewAppove(requestFactory: ReviewsRequestFactory) {
+        requestFactory.approve(commentId: 1) { response in
+            switch response.result {
+            case .success(let response):
+                print(response)
                 break
             case .failure(let err):
                 print(err.localizedDescription)

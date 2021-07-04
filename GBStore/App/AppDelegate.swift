@@ -23,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.register(ProductRequestFactory.self) { (_, errorParser: AbstractErrorParser, session: Session, queue: DispatchQueue) in
             return Product(errorParser: errorParser, sessionManager: session, queue: queue, configurtation: configuration)
         }
+        container.register(ReviewsRequestFactory.self) { (_, errorParser: AbstractErrorParser, session: Session, queue: DispatchQueue) in
+            return Reviews(errorParser: errorParser, sessionManager: session, queue: queue, configurtation: configuration)
+        }
         
         return container
     }()

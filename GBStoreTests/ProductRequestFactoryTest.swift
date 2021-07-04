@@ -61,5 +61,4 @@ class ProductRequestFactoryTest: XCTestCase {
         
         waitForExpectations(timeout: 10)
     }
-
 }
