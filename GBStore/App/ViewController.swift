@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         let userRequestFactory = requestFactory.makeUserRequestFatory()
         let productRequestFactory = requestFactory.makeProductRequestFactory()
         let reviewsRequestFatory = requestFactory.makeReviewsRequestFavotory()
+        let basketRequestFactory = requestFactory.makeBasketRequestFactory()
         
         userCreate(userRequestFactory: userRequestFactory)
         userUpdate(userRequestFactory: userRequestFactory)
@@ -32,8 +33,12 @@ class ViewController: UIViewController {
         reviewList(requestFactory: reviewsRequestFatory)
         reviewAppove(requestFactory: reviewsRequestFatory)
         reviewDelete(requestFactory: reviewsRequestFatory)
+        
+        addBasket(requestFactory: basketRequestFactory)
+        removeBasket(requestFactory: basketRequestFactory)
     }
     
+    // MARK: - user methods
     func userCreate(userRequestFactory: UserRequestFactory) {
         // registration
         userRequestFactory.create(model: CreateUserRequest(
@@ -44,6 +49,7 @@ class ViewController: UIViewController {
                                     creditCard: "0000-0000-0000-0000",
                                     bio: "Funny guy")
         ) { response in
+            print("User create")
             switch response.result {
             case .success(let user):
                 print(user)
@@ -62,6 +68,7 @@ class ViewController: UIViewController {
                                     creditCard: "1111-1111-1111-1111",
                                     bio: "Funny girl")
         ) { response in
+            print("User update")
             switch response.result {
             case .success(let user):
                 print(user)
@@ -72,6 +79,7 @@ class ViewController: UIViewController {
     }
     func userLogin(userRequestFactory: UserRequestFactory) {
         userRequestFactory.login(model: LoginRequest(userName: "username", password: "password")) { response in
+            print("User login")
             switch response.result {
             case .success(let login):
                 print(login)
@@ -82,6 +90,7 @@ class ViewController: UIViewController {
     }
     func userLogout(userRequestFactory: UserRequestFactory) {
         userRequestFactory.logout(userId: 123, completionHandler: { response in
+            print("User logout")
             switch response.result {
             case .success(let logout):
                 print(logout)
@@ -92,8 +101,10 @@ class ViewController: UIViewController {
         
     }
     
+    // MARK: - Product methods
     func productAll(productRequestFactory: ProductRequestFactory) {
         productRequestFactory.all(page: 0, categoryId: 1) { response in
+            print("All products")
             switch response.result {
             case .success(let productList):
                 print(productList)
@@ -105,6 +116,7 @@ class ViewController: UIViewController {
     }
     func productOne(productRequestFactory: ProductRequestFactory) {
         productRequestFactory.one(id: 123) { response in
+            print("One product")
             switch response.result {
             case .success(let product):
                 print(product)
@@ -115,8 +127,10 @@ class ViewController: UIViewController {
         }
     }
     
+    // MARK: - Review methods
     func reviewCreate(requestFactory: ReviewsRequestFactory) {
         requestFactory.create(model: CreateReviewModel(userId: 1, text: "hui", productId: 1)) { response in
+            print("Review create")
             switch response.result {
             case .success(let response):
                 print(response)
@@ -129,6 +143,7 @@ class ViewController: UIViewController {
     
     func reviewDelete(requestFactory: ReviewsRequestFactory) {
         requestFactory.delete(commentId: 1) { response in
+            print("Review delete")
             switch response.result {
             case .success(let response):
                 print(response)
@@ -141,6 +156,7 @@ class ViewController: UIViewController {
     
     func reviewList(requestFactory: ReviewsRequestFactory) {
         requestFactory.list(page: 0) { response in
+            print("Review list")
             switch response.result {
             case .success(let response):
                 print(response)
@@ -153,6 +169,33 @@ class ViewController: UIViewController {
     
     func reviewAppove(requestFactory: ReviewsRequestFactory) {
         requestFactory.approve(commentId: 1) { response in
+            print("Review approve")
+            switch response.result {
+            case .success(let response):
+                print(response)
+                break
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    // MARK: - Basket methods
+    func addBasket(requestFactory: BasketRequestFactory) {
+        requestFactory.add(productID: 1, quantity: 1) { response in
+            print("Basket add")
+            switch response.result {
+            case .success(let response):
+                print(response)
+                break
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    func removeBasket(requestFactory: BasketRequestFactory) {
+        requestFactory.remove(productID: 1) { response in
+            print("Basket remove")
             switch response.result {
             case .success(let response):
                 print(response)
