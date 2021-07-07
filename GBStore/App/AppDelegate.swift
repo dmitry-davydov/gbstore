@@ -26,9 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.register(ReviewsRequestFactory.self) { (_, errorParser: AbstractErrorParser, session: Session, queue: DispatchQueue) in
             return Reviews(errorParser: errorParser, sessionManager: session, queue: queue, configurtation: configuration)
         }
-        container.register(BasketRequestFactory.self) { (_, errorParser: AbstractErrorParser, session: Session, queue: DispatchQueue) in
+        
+        container.register(UserBasketProtocol.self) { _ in UserBasket() }.inObjectScope(.container)
+        
+        container.register(BasketRequestFactory.self) { (container, errorParser: AbstractErrorParser, session: Session, queue: DispatchQueue) in
             return Basket(errorParser: errorParser, sessionManager: session, queue: queue, configurtation: configuration)
         }
+        
+        
         
         return container
     }()
