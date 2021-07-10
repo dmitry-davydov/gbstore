@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - UserBasketProtocol
 protocol UserBasketProtocol {
-    var products: [ProductResponse] {get}
+    var products: [ProductResponse] { get }
     
     func pay()
     func add(product: ProductResponse)

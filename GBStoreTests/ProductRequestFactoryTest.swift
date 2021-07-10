@@ -31,8 +31,8 @@ class ProductRequestFactoryTest: XCTestCase {
     func testAllProducts() {
         let expectation = expectation(description: "All Products")
         let product = getProductRequestFactory()
-        
-        product.all(page: 0, categoryId: 1) { response in
+        let requestModel = ProductCollectionRequest(categoryId: 1, page: 1)
+        product.all(model: requestModel) { response in
             switch response.result {
             case .success(_):
                 expectation.fulfill()

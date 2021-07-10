@@ -41,167 +41,192 @@ class ViewController: UIViewController {
     // MARK: - user methods
     func userCreate(userRequestFactory: UserRequestFactory) {
         // registration
-        userRequestFactory.create(model: CreateUserRequest(
-                                    username: "username",
-                                    password: "pass",
-                                    email: "user@example.com",
-                                    gender: .male,
-                                    creditCard: "0000-0000-0000-0000",
-                                    bio: "Funny guy")
-        ) { response in
+        let requestModel = CreateUserRequest(
+            username: "username",
+            password: "pass",
+            email: "user@example.com",
+            gender: .male,
+            creditCard: "0000-0000-0000-0000",
+            bio: "Funny guy")
+        
+        print("Create user with data \(requestModel)")
+        
+        userRequestFactory.create(model: requestModel) { response in
             print("User create")
             switch response.result {
             case .success(let user):
-                print(user)
+                print("Create user success response with data \(user)")
             case .failure(let error):
-                print(error.localizedDescription)
+                print("Create user error response with \(error.localizedDescription)")
             }
         }
     }
+    
     func userUpdate(userRequestFactory: UserRequestFactory) {
-        userRequestFactory.update(model: UpdateUserRequest(
-                                    id: 123,
-                                    username: "username1",
-                                    password: "password1",
-                                    email: "user1@example.com",
-                                    gender: .female,
-                                    creditCard: "1111-1111-1111-1111",
-                                    bio: "Funny girl")
-        ) { response in
-            print("User update")
+        
+        let requestModel = UpdateUserRequest(
+            id: 123,
+            username: "username1",
+            password: "password1",
+            email: "user1@example.com",
+            gender: .female,
+            creditCard: "1111-1111-1111-1111",
+            bio: "Funny girl")
+        
+        print("Update user with data: \(requestModel)")
+        
+        userRequestFactory.update(model: requestModel) { response in
             switch response.result {
             case .success(let user):
-                print(user)
+                print("Update user success response with data \(user)")
             case .failure(let error):
-                print(error.localizedDescription)
+                print("Update user error response with \(error.localizedDescription)")
             }
         }
     }
+    
     func userLogin(userRequestFactory: UserRequestFactory) {
-        userRequestFactory.login(model: LoginRequest(userName: "username", password: "password")) { response in
-            print("User login")
+        let requestModel = LoginRequest(userName: "username", password: "password")
+        print("User logout request with \(requestModel)")
+        userRequestFactory.login(model: requestModel) { response in
             switch response.result {
             case .success(let login):
-                print(login)
+                print("User logout success response \(login)")
             case .failure(let error):
-                print(error.localizedDescription)
+                print("User logout error response \(error.localizedDescription)")
             }
         }
     }
+    
     func userLogout(userRequestFactory: UserRequestFactory) {
-        userRequestFactory.logout(userId: 123, completionHandler: { response in
-            print("User logout")
+        
+        let userId = 123
+        
+        print("Logout user request for user \(userId)")
+        
+        userRequestFactory.logout(userId: userId, completionHandler: { response in
             switch response.result {
             case .success(let logout):
-                print(logout)
+                print("Logout user success response with data \(logout)")
             case .failure(let error):
-                print(error.localizedDescription)
+                print("Logout user error response with \(error.localizedDescription)")
             }
         })
-        
     }
     
     // MARK: - Product methods
     func productAll(productRequestFactory: ProductRequestFactory) {
-        productRequestFactory.all(page: 0, categoryId: 1) { response in
-            print("All products")
+        
+        let requestModel = ProductCollectionRequest(categoryId: 1, page: 1)
+        
+        print("Product all request with \(requestModel)")
+        
+        productRequestFactory.all(model: requestModel) { response in
             switch response.result {
             case .success(let productList):
-                print(productList)
+                print("Product all success response with data \(productList)")
                 break
             case .failure(let err):
-                print(err.localizedDescription)
+                print("Product all error response with \(err.localizedDescription)")
             }
         }
     }
+    
     func productOne(productRequestFactory: ProductRequestFactory) {
+        print("Product one request with productId: 123")
         productRequestFactory.one(id: 123) { response in
-            print("One product")
             switch response.result {
             case .success(let product):
-                print(product)
+                print("Product one success response with \(product)")
                 break
             case .failure(let err):
-                print(err.localizedDescription)
+                print("Product one error response \(err.localizedDescription)")
             }
         }
     }
     
     // MARK: - Review methods
     func reviewCreate(requestFactory: ReviewsRequestFactory) {
-        requestFactory.create(model: CreateReviewModel(userId: 1, text: "hui", productId: 1)) { response in
-            print("Review create")
+        
+        let requestModel = CreateReviewModel(userId: 1, text: "hui", productId: 1)
+        print("Create review with data \(requestModel)")
+        
+        requestFactory.create(model: requestModel) { response in
             switch response.result {
             case .success(let response):
-                print(response)
+                print("Create review success response \(response)")
                 break
             case .failure(let err):
-                print(err.localizedDescription)
+                print("Create review error response \(err.localizedDescription)")
             }
         }
     }
     
     func reviewDelete(requestFactory: ReviewsRequestFactory) {
+        print("Delete review with commentId: 1")
         requestFactory.delete(commentId: 1) { response in
-            print("Review delete")
             switch response.result {
             case .success(let response):
-                print(response)
+                print("Delete review success response \(response)")
                 break
             case .failure(let err):
-                print(err.localizedDescription)
+                print("Delete review error response \(err.localizedDescription)")
             }
         }
     }
     
     func reviewList(requestFactory: ReviewsRequestFactory) {
+        print("Review list with page 0")
         requestFactory.list(page: 0) { response in
-            print("Review list")
             switch response.result {
             case .success(let response):
-                print(response)
+                print("Review list success response \(response)")
                 break
             case .failure(let err):
-                print(err.localizedDescription)
+                print("Review list error response \(err.localizedDescription)")
             }
         }
     }
     
     func reviewAppove(requestFactory: ReviewsRequestFactory) {
+        print("Review approve for commentId = 1")
         requestFactory.approve(commentId: 1) { response in
-            print("Review approve")
             switch response.result {
             case .success(let response):
-                print(response)
+                print("Review approve success response \(response)")
                 break
             case .failure(let err):
-                print(err.localizedDescription)
+                print("Review approve error response \(err.localizedDescription)")
             }
         }
     }
     
     // MARK: - Basket methods
     func addBasket(requestFactory: BasketRequestFactory) {
+        print("Add basket request with productId: 1 and quantity: 1")
         requestFactory.add(productID: 1, quantity: 1) { response in
-            print("Basket add")
+            
             switch response.result {
             case .success(let response):
-                print(response)
+                print("Add basket success response \(response)")
                 break
             case .failure(let err):
-                print(err.localizedDescription)
+                print("Add basket error response \(err.localizedDescription)")
             }
         }
     }
+    
     func removeBasket(requestFactory: BasketRequestFactory) {
+        
+        print("Remove basket request with productId: 1")
+        
         requestFactory.remove(productID: 1) { response in
-            print("Basket remove")
             switch response.result {
             case .success(let response):
-                print(response)
+                print("Remove basket success response \(response)")
                 break
             case .failure(let err):
-                print(err.localizedDescription)
+                print("Remove basket error response \(err.localizedDescription)")
             }
         }
     }
