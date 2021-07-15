@@ -18,9 +18,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: scene)
-        let mainViewController = ViewController()
+        window?.backgroundColor = .white
         
-        window?.rootViewController = mainViewController
+        let mainViewController = LoginViewController()
+        let navigationViewController = UINavigationController(rootViewController: mainViewController)
+//        navigationViewController.setNavigationBarHidden(true, animated: false)
+        navigationViewController.navigationBar.prefersLargeTitles = true
+//        let mainViewController = RegistrationViewController()
+//        let mainViewController = UserProfileViewController()
+//        mainViewController.userModel = UserResponse(id: 1, login: "login@example.com", name: "User name", lastname: "User lastname")
+        window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()
         
     }
