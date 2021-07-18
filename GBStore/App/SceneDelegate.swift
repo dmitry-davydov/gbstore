@@ -21,8 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.backgroundColor = .white
         
         let mainViewController = LoginViewController()
-//        let navigationViewController = UINavigationController(rootViewController: mainViewController)
-        let navigationViewController = UINavigationController(rootViewController: ProductListViewController())
+        let navigationViewController = UINavigationController(rootViewController: mainViewController)
+//        let navigationViewController = UINavigationController(rootViewController: ProductListViewController())
 //        navigationViewController.setNavigationBarHidden(true, animated: false)
         navigationViewController.navigationBar.prefersLargeTitles = true
 //        let mainViewController = RegistrationViewController()

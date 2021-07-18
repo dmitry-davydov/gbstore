@@ -24,6 +24,8 @@ class ProductListTableView: UITableView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        
+        
         self.snp.remakeConstraints { make in
             make.top.equalTo(0)
             make.trailing.equalToSuperview()

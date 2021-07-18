@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A092C3526A2CE6000CC2342 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A092C3426A2CE6000CC2342 /* CustomTextField.swift */; };
+		0A092C3726A2ED8100CC2342 /* CustomSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A092C3626A2ED8100CC2342 /* CustomSubmitButton.swift */; };
+		0A092C3926A436D100CC2342 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A092C3826A436D100CC2342 /* Style.swift */; };
+		0A092C3C26A43BFE00CC2342 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A092C3B26A43BFE00CC2342 /* TabBarViewController.swift */; };
+		0A092C3E26A4471800CC2342 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A092C3D26A4471800CC2342 /* UserSession.swift */; };
 		0A2EC3DC26865F9600C5734F /* UpdateUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2EC3DB26865F9600C5734F /* UpdateUserRequest.swift */; };
 		0A2EC3DE2686622300C5734F /* LogoutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2EC3DD2686622300C5734F /* LogoutResponse.swift */; };
 		0A2EC3E02686625F00C5734F /* UpdateUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2EC3DF2686625F00C5734F /* UpdateUserResponse.swift */; };
@@ -82,6 +87,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A092C3426A2CE6000CC2342 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		0A092C3626A2ED8100CC2342 /* CustomSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSubmitButton.swift; sourceTree = "<group>"; };
+		0A092C3826A436D100CC2342 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		0A092C3B26A43BFE00CC2342 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		0A092C3D26A4471800CC2342 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		0A2EC3DB26865F9600C5734F /* UpdateUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserRequest.swift; sourceTree = "<group>"; };
 		0A2EC3DD2686622300C5734F /* LogoutResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutResponse.swift; sourceTree = "<group>"; };
 		0A2EC3DF2686625F00C5734F /* UpdateUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserResponse.swift; sourceTree = "<group>"; };
@@ -182,6 +192,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A092C3326A2CE1E00CC2342 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0A092C3426A2CE6000CC2342 /* CustomTextField.swift */,
+				0A092C3626A2ED8100CC2342 /* CustomSubmitButton.swift */,
+				0A092C3826A436D100CC2342 /* Style.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		0A3666D4267F3B6C00314F6C = {
 			isa = PBXGroup;
 			children = (
@@ -309,6 +329,7 @@
 			children = (
 				0A88651B2683E4B800926D10 /* Network */,
 				0A48DF532694338800574C50 /* UserBasket.swift */,
+				0A092C3D26A4471800CC2342 /* UserSession.swift */,
 			);
 			path = BussinessLogic;
 			sourceTree = "<group>";
@@ -334,10 +355,12 @@
 		0A925099267F7934002E113E /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				0A092C3326A2CE1E00CC2342 /* Common */,
 				0AB8A3E626A13DB800C1A563 /* ProductList */,
 				0AD9EB43269F40170018F295 /* UserProfile */,
 				0AD9EB42269F400A0018F295 /* Registration */,
 				0AD9EB3D269B418D0018F295 /* Login */,
+				0A092C3B26A43BFE00CC2342 /* TabBarViewController.swift */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -695,14 +718,17 @@
 				0AD9EB4B269F66E30018F295 /* RegistrationViewController.swift in Sources */,
 				0AD9EB4D269F67060018F295 /* RegistrationView.swift in Sources */,
 				0A48DF58269842ED00574C50 /* ProductCollectionRequest.swift in Sources */,
+				0A092C3E26A4471800CC2342 /* UserSession.swift in Sources */,
 				0A2EC3E8268666D100C5734F /* CreateUserRequest.swift in Sources */,
 				0A88651D2683E4D000926D10 /* UserRequestFactory.swift in Sources */,
 				0AB0C164268E2DC60093DB03 /* ViewController.swift in Sources */,
 				0AB8A3EA26A13DFB00C1A563 /* ProductListPresenter.swift in Sources */,
 				0A2EC3DE2686622300C5734F /* LogoutResponse.swift in Sources */,
 				0A8865232683E66600926D10 /* RequestFactory.swift in Sources */,
+				0A092C3726A2ED8100CC2342 /* CustomSubmitButton.swift in Sources */,
 				0AFC884E268FB36A00DEF803 /* ResultResponse.swift in Sources */,
 				0A48DF5026942E5F00574C50 /* BasketRequestFactory.swift in Sources */,
+				0A092C3526A2CE6000CC2342 /* CustomTextField.swift in Sources */,
 				0A48DF542694338800574C50 /* UserBasket.swift in Sources */,
 				0AB8A3EC26A1403400C1A563 /* ProductListTableView.swift in Sources */,
 				0A2EC3E2268662AF00C5734F /* CreateUserResponse.swift in Sources */,
@@ -719,9 +745,11 @@
 				0AD9EB49269F45030018F295 /* UserProfilePresenter.swift in Sources */,
 				0A8865182683E36B00926D10 /* LoginResponse.swift in Sources */,
 				0AF8BE64268791C1006B2445 /* ProductListResponse.swift in Sources */,
+				0A092C3926A436D100CC2342 /* Style.swift in Sources */,
 				0A88651A2683E39D00926D10 /* UserResponse.swift in Sources */,
 				0A8865122683E1C500926D10 /* CustomDecodableSerializer.swift in Sources */,
 				0A8865142683E26C00926D10 /* AbstractRequestFactory.swift in Sources */,
+				0A092C3C26A43BFE00CC2342 /* TabBarViewController.swift in Sources */,
 				0A8865102683E18000926D10 /* ErrorParser.swift in Sources */,
 				0AFC8847268FB15A00DEF803 /* ReviewsRequestFactory.swift in Sources */,
 				0AFC884C268FB33D00DEF803 /* CreateReviewModel.swift in Sources */,

@@ -14,9 +14,9 @@ class LoginView: UIView {
     // MARK:- UI views
     private let formContainer = UIView()
     private let titleLabel = UILabel()
-    private let usernameField = UITextField()
-    private let passwordField = UITextField()
-    private let submitButton = UIButton()
+    private let usernameField = CustomTextField(height: FormElementStyle.formItemHeight)
+    private let passwordField = CustomTextField(height: FormElementStyle.formItemHeight)
+    private let submitButton = CustomSubmitButton(height: FormElementStyle.formItemHeight, cornerRadius: FormElementStyle.cornerRadius)
     private let moveToRegistrationButton = UIButton()
     
     // MARK: - presenter
@@ -32,51 +32,32 @@ class LoginView: UIView {
         
         addSubview(formContainer)
         
-        let textFieldHeight: CGFloat = 40
-        let textFieldCornerRadius: CGFloat = 4
-        let textFieldPlaceholderPadding: CGFloat = 12
-        
         backgroundColor = .white
         
         // MARK: - Title label configuration
         titleLabel.text = "Login"
-        titleLabel.font = .boldSystemFont(ofSize: 28)
+        titleLabel.font = .boldSystemFont(ofSize: Style.headerLabelFontSize)
         titleLabel.textColor = .black
         titleLabel.sizeToFit()
         formContainer.addSubview(titleLabel)
         
         // MARK: - Username text field configuration
         usernameField.placeholder = "Username"
-        usernameField.layer.borderColor = UIColor.gray.cgColor
-        usernameField.layer.borderWidth = 1
-        usernameField.layer.cornerRadius = textFieldCornerRadius
-        usernameField.pin.height(textFieldHeight)
-        usernameField.leftView = UIView.init(frame: CGRect(x: 0, y: 0, width: textFieldPlaceholderPadding, height: textFieldHeight))
-        usernameField.leftViewMode = .always
         formContainer.addSubview(usernameField)
         
         // MARK: - Password text field configuration
         passwordField.placeholder = "Password"
         passwordField.isSecureTextEntry = true
-        passwordField.layer.borderColor = UIColor.gray.cgColor
-        passwordField.layer.borderWidth = 1
-        passwordField.layer.cornerRadius = textFieldCornerRadius
-        passwordField.pin.height(textFieldHeight)
-        passwordField.leftView = UIView.init(frame: CGRect(x: 0, y: 0, width: textFieldPlaceholderPadding, height: textFieldHeight))
-        passwordField.leftViewMode = .always
         formContainer.addSubview(passwordField)
         
         // MARK: - Submit button configuration
         submitButton.setTitle("Submit", for: .normal)
-        submitButton.backgroundColor = .gray
-        submitButton.pin.height(textFieldHeight)
-        submitButton.layer.cornerRadius = textFieldCornerRadius
         formContainer.addSubview(submitButton)
         
         // MARK: - Move to register button configuration
         moveToRegistrationButton.setTitle("Register", for: .normal)
         moveToRegistrationButton.setTitleColor(.blue, for: .normal)
-        moveToRegistrationButton.pin.height(textFieldHeight)
+        moveToRegistrationButton.pin.height(FormElementStyle.formItemHeight)
         formContainer.addSubview(moveToRegistrationButton)
         
         // MARK: - Button targets
@@ -91,35 +72,31 @@ class LoginView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let leftRightMargin: CGFloat = 16
-        let topMargin: CGFloat = 12
-        
-        
         formContainer.pin.width(100%)
         titleLabel.pin.hCenter().top(pin.safeArea)
         
         usernameField.pin
             .below(of: titleLabel)
             .horizontally()
-            .margin(leftRightMargin)
-            .marginBottom(0)
+            .margin(FormElementStyle.leftMargin)
+            .marginBottom(FormElementStyle.bottomMargin)
         
         passwordField.pin
             .below(of: usernameField)
             .horizontally()
-            .margin(leftRightMargin)
-            .marginTop(topMargin)
+            .margin(FormElementStyle.leftMargin)
+            .marginTop(FormElementStyle.topMargin)
         
         submitButton.pin
             .below(of: passwordField)
             .horizontally()
-            .margin(leftRightMargin)
-            .marginTop(topMargin)
+            .margin(FormElementStyle.leftMargin)
+            .marginTop(FormElementStyle.topMargin)
         
         moveToRegistrationButton.pin
             .below(of: submitButton)
             .width(100%)
-            .marginTop(leftRightMargin)
+            .marginTop(FormElementStyle.leftMargin)
         
         formContainer.pin.wrapContent(.vertically)
         formContainer.pin.center().marginTop(-formContainer.frame.height/2)

@@ -45,8 +45,10 @@ extension LoginPresenter: LoginViewOutput {
             
             switch response.result {
             case .success(let user):
-                DispatchQueue.main.async {
-                    self?.viewDidSuccessLogin(model: user)
+                if user.isSuccess() {
+                    DispatchQueue.main.async {
+                        self?.viewDidSuccessLogin(model: user)
+                    }
                 }
                 
                 break
@@ -57,9 +59,11 @@ extension LoginPresenter: LoginViewOutput {
     }
     
     func viewDidSuccessLogin(model: LoginResponse) {
-        let userProfileViewController = UserProfileViewController()
-        userProfileViewController.userModel = model.user
-        viewInput?.navigationController?.pushViewController(userProfileViewController, animated: true)
+        
+        UserSession.shared.setUser(loginResponse: model)
+        
+        UIApplication.shared.windows[0].rootViewController = TabBarViewController()
+        UIApplication.shared.windows[0].makeKeyAndVisible()
     }
     
     func viewDidMoveToRegistration() {

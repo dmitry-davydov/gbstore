@@ -11,4 +11,8 @@ struct LoginResponse: Codable {
     let result: Int
     let user: UserResponse
     let authToken: String
+    
+    func isSuccess() -> Bool {
+        return result == 1
+    }
 }
