@@ -27,6 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return Reviews(errorParser: errorParser, sessionManager: session, queue: queue, configurtation: configuration)
         }
         
+        container.register(UserBasketProtocol.self) { _ in UserBasket() }.inObjectScope(.container)
+        
+        container.register(BasketRequestFactory.self) { (container, errorParser: AbstractErrorParser, session: Session, queue: DispatchQueue) in
+            Basket(errorParser: errorParser, sessionManager: session, queue: queue, configurtation: configuration)
+        }
+        
         return container
     }()
     
@@ -47,7 +53,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
 }
 

@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 protocol ProductRequestFactory {
-    func all(page: Int, categoryId: Int, completionHandler: @escaping(AFDataResponse<ProductListResponse>) -> Void)
+    func all(model: ProductCollectionRequest, completionHandler: @escaping(AFDataResponse<ProductListResponse>) -> Void)
     func one(id: ProductID, completionHandler: @escaping(AFDataResponse<ProductResponse>) -> Void)
     
 }
@@ -29,8 +29,8 @@ class Product: AbstractRequestFactory {
 }
 
 extension Product: ProductRequestFactory {
-    func all(page: Int = 0, categoryId: Int, completionHandler: @escaping (AFDataResponse<ProductListResponse>) -> Void) {
-        let requestModel = AllRequest(baseUrl: baseUrl, page: page, categoryId: categoryId)
+    func all(model: ProductCollectionRequest, completionHandler: @escaping (AFDataResponse<ProductListResponse>) -> Void) {
+        let requestModel = AllRequest(baseUrl: baseUrl, model: model)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
@@ -46,13 +46,12 @@ extension Product {
         let method: HTTPMethod = .post
         let path: String = "product/all"
         
-        let page: Int
-        let categoryId: Int
+        let model: ProductCollectionRequest
         
         var parameters: Parameters? {
             return [
-                "page_number": page,
-                "id_category": categoryId
+                "page_number": model.page,
+                "id_category": model.categoryId
             ]
         }
     }

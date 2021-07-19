@@ -1,14 +1,14 @@
 //
-//  ProductRequestFactoryTest.swift
+//  BasketRequestFactoryTests.swift
 //  GBStoreTests
 //
-//  Created by Дима Давыдов on 26.06.2021.
+//  Created by Дима Давыдов on 06.07.2021.
 //
 
 import XCTest
 @testable import GBStore
 
-class ProductRequestFactoryTest: XCTestCase {
+class BasketRequestFactoryTests: XCTestCase {
 
     var requestFactory: RequestFactory?
     
@@ -22,34 +22,16 @@ class ProductRequestFactoryTest: XCTestCase {
         requestFactory = nil
     }
     
-    func getProductRequestFactory() -> ProductRequestFactory {
+    func getRequestFactory() -> BasketRequestFactory {
         XCTAssertNotNil(requestFactory)
         
-        return try! XCTUnwrap(requestFactory).makeProductRequestFactory()
-    }
-
-    func testAllProducts() {
-        let expectation = expectation(description: "All Products")
-        let product = getProductRequestFactory()
-        let requestModel = ProductCollectionRequest(categoryId: 1, page: 1)
-        product.all(model: requestModel) { response in
-            switch response.result {
-            case .success(_):
-                expectation.fulfill()
-                break
-            case .failure(let err):
-                XCTFail(err.localizedDescription)
-            }
-        }
-        
-        waitForExpectations(timeout: 10)
+        return try! XCTUnwrap(requestFactory).makeBasketRequestFactory()
     }
     
-    func testOneProduct() {
-        let expectation = expectation(description: "One Product")
-        let product = getProductRequestFactory()
-        
-        product.one(id: 123) { response in
+    func testAdd() {
+        let expectation = expectation(description: "Add to basket")
+        let reviews = getRequestFactory()
+        reviews.add(productID: 1, quantity: 1, completionHandler: { response in
             switch response.result {
             case .success(_):
                 expectation.fulfill()
@@ -57,8 +39,25 @@ class ProductRequestFactoryTest: XCTestCase {
             case .failure(let err):
                 XCTFail(err.localizedDescription)
             }
-        }
+        })
         
-        waitForExpectations(timeout: 10)
+        wait(for: [expectation], timeout: 10)
     }
+    
+    func testRemove() {
+        let expectation = expectation(description: "Remove from basket")
+        let reviews = getRequestFactory()
+        reviews.remove(productID: 1, completionHandler: { response in
+            switch response.result {
+            case .success(_):
+                expectation.fulfill()
+                break
+            case .failure(let err):
+                XCTFail(err.localizedDescription)
+            }
+        })
+        
+        wait(for: [expectation], timeout: 10)
+    }
+
 }

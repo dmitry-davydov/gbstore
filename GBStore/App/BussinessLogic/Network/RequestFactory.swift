@@ -45,4 +45,11 @@ class RequestFactory {
             arguments: makeErrorParser(), commonSession, sessionQueue
         )!
     }
+    
+    func makeBasketRequestFactory() -> BasketRequestFactory {
+        return (UIApplication.shared.delegate as! AppDelegate).container.resolve(
+            BasketRequestFactory.self,
+            arguments: makeErrorParser(), commonSession, sessionQueue
+        )!
+    }
 }
