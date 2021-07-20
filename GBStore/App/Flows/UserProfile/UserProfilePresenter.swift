@@ -33,19 +33,19 @@ extension UserProfilePresenter: UserProfileViewOutput {
         
         viewInput?.disableSubmitButton()
         
-        userRequestFactory.update(model: model) { [weak self] response in
+        print("Update user request with data: \(model)")
         
+        userRequestFactory.update(model: model) { [weak self] response in
             DispatchQueue.main.async {
                 self?.viewInput?.enableSubmitButton()
             }
-            
             switch response.result {
             case .success(_):
                 // ничего не делаем
-                print("user update success")
+                print("Update user success response")
                 break
             case .failure(let err):
-                print(err.errorDescription)
+                print("Update user error response: \(err.localizedDescription)")
             }
         }
     }

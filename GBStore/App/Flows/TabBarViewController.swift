@@ -8,12 +8,15 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
+    
+    // MARK: - ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureTabs()
     }
     
+    // MARK: - Configure tab bar controller
     private func configureTabs() {
         let productsViewController = ProductListViewController()
         productsViewController.tabBarItem = UITabBarItem(

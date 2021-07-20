@@ -12,6 +12,7 @@ import PinLayout
 class LoginView: UIView {
     
     // MARK:- UI views
+    private let scrollView = UIScrollView()
     private let formContainer = UIView()
     private let titleLabel = UILabel()
     private let usernameField = CustomTextField(height: FormElementStyle.formItemHeight)
@@ -30,7 +31,8 @@ class LoginView: UIView {
         
         self.presenter = presenter
         
-        addSubview(formContainer)
+        scrollView.addSubview(formContainer)
+        addSubview(scrollView)
         
         backgroundColor = .white
         
@@ -72,6 +74,7 @@ class LoginView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        scrollView.pin.all(pin.safeArea)
         formContainer.pin.width(100%)
         titleLabel.pin.hCenter().top(pin.safeArea)
         
@@ -100,6 +103,11 @@ class LoginView: UIView {
         
         formContainer.pin.wrapContent(.vertically)
         formContainer.pin.center().marginTop(-formContainer.frame.height/2)
+        scrollView.contentSize = frame.size
+    }
+    
+    func viewWillChangeContentInsets(bottom: CGFloat) {
+        scrollView.contentInset.bottom = bottom
     }
     
     // MARK: - Submit button touch up inside target

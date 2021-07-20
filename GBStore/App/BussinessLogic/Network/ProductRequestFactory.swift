@@ -11,14 +11,13 @@ import Alamofire
 protocol ProductRequestFactory {
     func all(model: ProductCollectionRequest, completionHandler: @escaping(AFDataResponse<ProductListResponse>) -> Void)
     func one(id: ProductID, completionHandler: @escaping(AFDataResponse<ProductResponse>) -> Void)
-    
 }
 
 class Product: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl: URL
+    let baseUrl: String
     
     init(errorParser: AbstractErrorParser, sessionManager: Session, queue: DispatchQueue = DispatchQueue.global(qos: .utility), configurtation: Configuration) {
         self.errorParser = errorParser
@@ -42,7 +41,7 @@ extension Product: ProductRequestFactory {
 
 extension Product {
     struct AllRequest: RequestRouter {
-        let baseUrl: URL
+        let baseUrl: String
         let method: HTTPMethod = .post
         let path: String = "product/all"
         
@@ -57,7 +56,7 @@ extension Product {
     }
     
     struct ProductRequest: RequestRouter {
-        let baseUrl: URL
+        let baseUrl: String
         let method: HTTPMethod = .post
         let path: String = "product/one"
         

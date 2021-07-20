@@ -29,14 +29,17 @@ class ProductListPresenter {
 // MARK: - Implementation of ViewOutput protocol for Presenter
 extension ProductListPresenter: ProductListViewOutput {
     func viewWillLoadTableData(categoryId: Int, page: Int) {
-        productRequestFactory.all(model: ProductCollectionRequest(categoryId: categoryId, page: page)) { [weak self] response in
+        let model = ProductCollectionRequest(categoryId: categoryId, page: page)
+        print("Product list request with data: \(model)")
+        productRequestFactory.all(model: model) { [weak self] response in
             switch response.result {
             case .success(let productList):
+                print("Product list success response: \(productList)")
                 DispatchQueue.main.async {
                     self?.viewInput?.reloadTableView(with: productList)
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                print("Product list error response: \(error.localizedDescription)")
             }
         }
     }

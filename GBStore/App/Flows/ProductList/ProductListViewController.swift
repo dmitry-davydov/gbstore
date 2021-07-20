@@ -14,6 +14,7 @@ class ProductListViewController: UIViewController {
     let tableView = ProductListTableView()
     var presenter: ProductListPresenter?
     
+    // MARK: - View Controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +33,7 @@ class ProductListViewController: UIViewController {
     }
 }
 
+// MARK: - ProductListViewInput implementation for ProductListViewController
 extension ProductListViewController: ProductListViewInput {
     func reloadTableView(with data: ProductListResponse) {
         productList[data.page_number] = data.products
@@ -43,6 +45,7 @@ extension ProductListViewController: ProductListViewInput {
 
 extension ProductListViewController: UITableViewDelegate {}
 
+// MARK: - UITableViewDataSource implementation for ProductListViewController
 extension ProductListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

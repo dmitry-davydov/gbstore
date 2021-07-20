@@ -19,7 +19,7 @@ class Reviews: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl: URL
+    let baseUrl: String
     
     init(errorParser: AbstractErrorParser, sessionManager: Session, queue: DispatchQueue = DispatchQueue.global(qos: .utility), configurtation: Configuration) {
         self.errorParser = errorParser
@@ -53,7 +53,7 @@ extension Reviews: ReviewsRequestFactory {
 
 extension Reviews {
     struct ListRequest: RequestRouter {
-        let baseUrl: URL
+        let baseUrl: String
         let method: HTTPMethod = .get
         var path: String = "reviews"
         
@@ -67,7 +67,7 @@ extension Reviews {
     }
     
     struct CreateRequest: RequestRouter {
-        let baseUrl: URL
+        let baseUrl: String
         let method: HTTPMethod = .post
         var path: String = "reviews"
         
@@ -82,7 +82,7 @@ extension Reviews {
     }
     
     struct DeleteRequest: RequestRouter {
-        let baseUrl: URL
+        let baseUrl: String
         let method: HTTPMethod = .post
         var path: String = "reviews/delete"
         
@@ -96,7 +96,7 @@ extension Reviews {
     }
     
     struct ApproveRequest: RequestRouter {
-        let baseUrl: URL
+        let baseUrl: String
         let method: HTTPMethod = .post
         var path: String = "reviews/approve"
         

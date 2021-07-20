@@ -11,6 +11,7 @@ import PinLayout
 class RegistrationView: UIView {
     // MARK: - UI Views
     
+    private let scrollView = UIScrollView()
     private let titleLabel = UILabel()
     
     private let usernameTextField = CustomTextField(height: FormElementStyle.formItemHeight)
@@ -37,7 +38,8 @@ class RegistrationView: UIView {
         super.init(frame: .zero)
         self.presenter = presenter
         
-        addSubview(formContainer)
+        addSubview(scrollView)
+        scrollView.addSubview(formContainer)
         
         backgroundColor = .white
         
@@ -96,6 +98,10 @@ class RegistrationView: UIView {
         moveToLoginButton.addTarget(self, action: #selector(moveToLogin), for: .touchUpInside)
     }
     
+    func viewWillChangeContentInsets(bottom: CGFloat) {
+        scrollView.contentInset.bottom = bottom
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -103,6 +109,7 @@ class RegistrationView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        scrollView.pin.all(pin.safeArea)
         formContainer.pin.width(100%).top(pin.safeArea).hCenter().pinEdges()
         titleLabel.pin.hCenter().top()
         
@@ -166,6 +173,7 @@ class RegistrationView: UIView {
             .marginTop(FormElementStyle.leftMargin)
         
         formContainer.pin.wrapContent(.vertically)
+        scrollView.contentSize = frame.size
     }
     
     //MARK: - submit button touch up inside target
@@ -195,6 +203,7 @@ class RegistrationView: UIView {
 
 //MARK: - Implementation of RegistrationViewInput for RegistrationView
 extension RegistrationView: RegistrationViewInput {
+    
     func enableSubmitButton() {
         submitButton.isEnabled = true
         submitButtonEnabled = true

@@ -12,15 +12,14 @@ class UserProfileView: UIView {
     
     // MARK: - UI Views
     
+    private let scrollView = UIScrollView()
     private let titleLabel = UILabel()
     
     private let usernameTextField = CustomTextField(height: FormElementStyle.formItemHeight)
     private let passwordTextField = CustomTextField(height: FormElementStyle.formItemHeight)
     private let emailTextField = CustomTextField(height: FormElementStyle.formItemHeight)
     
-    private let maleLabel = UILabel()
-    private let genderSwitcher = UISwitch()
-    private let femaleLabel = UILabel()
+    private let genderSegmentedControl = UISegmentedControl(items: ["Female", "Male"])
     
     private let creaditcardTextField = CustomTextField(height: FormElementStyle.formItemHeight)
     private let bioTextField = CustomTextField(height: FormElementStyle.formItemHeight)
@@ -39,8 +38,8 @@ class UserProfileView: UIView {
         self.presenter = presenter
         self.userModel = userModel
         
-        addSubview(formContainer)
-        
+        addSubview(scrollView)
+        scrollView.addSubview(formContainer)
         backgroundColor = .white
         
         //MARK: - title label configuration
@@ -70,16 +69,8 @@ class UserProfileView: UIView {
         formContainer.addSubview(creaditcardTextField)
         
         //MARK: - gender configuration
-        maleLabel.text = "Male"
-        maleLabel.sizeToFit()
-        maleLabel.pin.height(FormElementStyle.formItemHeight)
-        femaleLabel.text = "Female"
-        femaleLabel.sizeToFit()
-        femaleLabel.pin.height(FormElementStyle.formItemHeight)
-        
-        formContainer.addSubview(femaleLabel)
-        formContainer.addSubview(genderSwitcher)
-        formContainer.addSubview(maleLabel)
+        genderSegmentedControl.selectedSegmentIndex = 0
+        formContainer.addSubview(genderSegmentedControl)
         
         //MARK: - bio text field configuration
         bioTextField.placeholder = "Bio"
@@ -98,9 +89,14 @@ class UserProfileView: UIView {
         super.init(coder: coder)
     }
     
+    func viewWillChangeContentInsets(bottom: CGFloat) {
+        scrollView.contentInset.bottom = bottom
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        scrollView.pin.all(pin.safeArea)
         formContainer.pin.width(100%)
         titleLabel.pin.hCenter().top(pin.safeArea)
         
@@ -132,21 +128,13 @@ class UserProfileView: UIView {
             .marginTop(FormElementStyle.topMargin)
             .marginBottom(FormElementStyle.bottomMargin)
         
-        femaleLabel.pin
-            .below(of: creaditcardTextField, aligned: .left)
+        genderSegmentedControl.pin.below(of: creaditcardTextField)
+            .horizontally()
+            .margin(FormElementStyle.leftMargin)
             .marginTop(FormElementStyle.topMargin)
         
-        genderSwitcher.pin
-            .after(of: femaleLabel, aligned: .top)
-            .marginTop(FormElementStyle.topMargin / 2)
-            .marginLeft(FormElementStyle.leftMargin)
-        
-        maleLabel.pin
-            .after(of: femaleLabel, aligned: .top)
-            .marginLeft(FormElementStyle.leftMargin + genderSwitcher.frame.width + FormElementStyle.leftMargin)
-        
         bioTextField.pin
-            .below(of: femaleLabel)
+            .below(of: genderSegmentedControl)
             .horizontally()
             .margin(FormElementStyle.leftMargin)
             .marginTop(FormElementStyle.topMargin)
@@ -159,7 +147,7 @@ class UserProfileView: UIView {
             .marginTop(FormElementStyle.topMargin)
         
         formContainer.pin.wrapContent(.vertically)
-        formContainer.pin.center().marginTop(-formContainer.frame.height/2)
+        scrollView.contentSize = frame.size
     }
     
     //MARK: - submit button touch up inside target
@@ -174,7 +162,7 @@ class UserProfileView: UIView {
             username: usernameTextField.text ?? "",
             password: passwordTextField.text ?? "",
             email: emailTextField.text ?? "",
-            gender: genderSwitcher.isOn ? .female : .male,
+            gender: genderSegmentedControl.selectedSegmentIndex == 0 ? .female : .male,
             creditCard: creaditcardTextField.text ?? "",
             bio: bioTextField.text ?? ""
         )
