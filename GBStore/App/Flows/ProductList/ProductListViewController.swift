@@ -43,7 +43,18 @@ extension ProductListViewController: ProductListViewInput {
     }
 }
 
-extension ProductListViewController: UITableViewDelegate {}
+extension ProductListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        guard let productListItem = productList[page]?[indexPath.row] else {
+            return
+        }
+        
+        presenter?.viewWillMoveToProductItem(productId: productListItem.id)
+    }
+}
 
 // MARK: - UITableViewDataSource implementation for ProductListViewController
 extension ProductListViewController: UITableViewDataSource {
