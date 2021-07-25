@@ -54,6 +54,7 @@
 		0ACB69C526AC3E2900524C50 /* CartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB69C426AC3E2900524C50 /* CartPresenter.swift */; };
 		0ACB69C726AC3E7900524C50 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB69C626AC3E7900524C50 /* CartView.swift */; };
 		0ACB69C926AC496A00524C50 /* CartTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB69C826AC496A00524C50 /* CartTableCell.swift */; };
+		0ACB69CB26AE153D00524C50 /* LoginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB69CA26AE153D00524C50 /* LoginUITests.swift */; };
 		0AD9EB3F269B419D0018F295 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9EB3E269B419D0018F295 /* LoginView.swift */; };
 		0AD9EB41269CD9BA0018F295 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9EB40269CD9BA0018F295 /* LoginPresenter.swift */; };
 		0AD9EB45269F44D20018F295 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9EB44269F44D20018F295 /* UserProfileViewController.swift */; };
@@ -150,6 +151,7 @@
 		0ACB69C426AC3E2900524C50 /* CartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
 		0ACB69C626AC3E7900524C50 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		0ACB69C826AC496A00524C50 /* CartTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableCell.swift; sourceTree = "<group>"; };
+		0ACB69CA26AE153D00524C50 /* LoginUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUITests.swift; sourceTree = "<group>"; };
 		0AD9EB3E269B419D0018F295 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		0AD9EB40269CD9BA0018F295 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		0AD9EB44269F44D20018F295 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			children = (
 				0A36670C267F3E4B00314F6C /* GBStoreUITests.swift */,
 				0A36670E267F3E4B00314F6C /* Info.plist */,
+				0ACB69CA26AE153D00524C50 /* LoginUITests.swift */,
 			);
 			path = GBStoreUITests;
 			sourceTree = "<group>";
@@ -843,6 +846,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A36670D267F3E4B00314F6C /* GBStoreUITests.swift in Sources */,
+				0ACB69CB26AE153D00524C50 /* LoginUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
