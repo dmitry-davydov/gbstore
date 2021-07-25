@@ -21,6 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.backgroundColor = .white
         
         let mainViewController = LoginViewController()
+//        let mainViewController = CartViewController()
+//        let mainViewController = ProductListViewController()
         let navigationViewController = UINavigationController(rootViewController: mainViewController)
 
         navigationViewController.navigationBar.prefersLargeTitles = true

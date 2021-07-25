@@ -8,8 +8,9 @@
 import UIKit
 import SnapKit
 
-protocol MoveToReviewsDelegate: UIViewController {
+protocol ProductItemViewDelegate: UIViewController {
     func moveToReviews()
+    func addToCart()
 }
 
 class ProductItemView: UIView {
@@ -18,8 +19,13 @@ class ProductItemView: UIView {
     let descriptionView = UILabel()
     let priceView = UILabel()
     let reviewButton = CustomSubmitButton(height: 40, cornerRadius: 4)
+    let addToCartButton = UIButton()
     
-    weak var delegate: MoveToReviewsDelegate?
+    weak var delegate: ProductItemViewDelegate?
+    
+    //MARK: - add to cart constants
+    private let addToCartButtonСornderRadius: CGFloat = 12
+    private let addToCartButtonWidth: CGFloat = 80
     
     // MARK: - Constructor
     init() {
@@ -36,11 +42,18 @@ class ProductItemView: UIView {
         
         addSubview(scrollView)
         
+        addToCartButton.backgroundColor = .lightGray
+        addToCartButton.layer.cornerRadius = addToCartButtonСornderRadius
+        addToCartButton.setTitle("Buy", for: .normal)
+        
+        scrollView.addSubview(addToCartButton)
+        
         scrollView.addSubview(priceView)
         scrollView.addSubview(descriptionView)
         scrollView.addSubview(reviewButton)
         
         reviewButton.addTarget(self, action: #selector(moveToReview), for: .touchUpInside)
+        addToCartButton.addTarget(self, action: #selector(addToCart), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -56,6 +69,11 @@ class ProductItemView: UIView {
     @objc
     func moveToReview(_ sender: UIButton) {
         delegate?.moveToReviews()
+    }
+    
+    @objc
+    func addToCart(_ sender: UIButton) {
+        delegate?.addToCart()
     }
     
     // MARK: - Layout subview
@@ -82,6 +100,15 @@ class ProductItemView: UIView {
             make.top.equalTo(descriptionView.snp.bottom).offset(FormElementStyle.viewTopOffset)
             make.trailing.equalToSuperview()
             make.leading.equalToSuperview()
+        }
+        
+        addToCartButton.snp.remakeConstraints { [weak self] make in
+            guard let self = self else {
+                return
+            }
+            make.centerY.equalTo(priceView.snp.centerY)
+            make.width.equalTo(self.addToCartButtonWidth)
+            make.trailing.equalToSuperview()
         }
         
         reviewButton.snp.remakeConstraints { make in

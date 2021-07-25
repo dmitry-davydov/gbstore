@@ -15,6 +15,7 @@ protocol ProductItemViewInput {
 protocol ProductItemViewOutput {
     func viewDidLoadProductItem(productId: ProductID)
     func viewWillShowReviews(productId: ProductID)
+    func viewWillAddToCart(product: ProductResponse)
 }
 
 // MARK: - Product item presenter
@@ -25,6 +26,16 @@ class ProductItemPresenter {
     lazy var productRequestFactory: ProductRequestFactory = {
         let requestFactory = RequestFactory()
         return requestFactory.makeProductRequestFactory()
+    }()
+    
+    lazy var userBasketService: UserBasketProtocol = {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+              let userBasket = appDelegate.container.resolve(UserBasketProtocol.self) else {
+            fatalError("Can not resolve container")
+        }
+        
+        return userBasket
     }()
 }
 
@@ -55,5 +66,9 @@ extension ProductItemPresenter: ProductItemViewOutput {
                 }
             }
         }
+    }
+    
+    func viewWillAddToCart(product: ProductResponse) {
+        userBasketService.add(product: product)
     }
 }
