@@ -37,7 +37,10 @@ extension LoginPresenter: LoginViewOutput {
     func viewDidSubmit(username: String, password: String) {
         viewInput?.disableSubmitButton()
         
-        userRequestFactory.login(model: LoginRequest(userName: username, password: password)) { [weak self] response in
+        let requestModel = LoginRequest(userName: username, password: password)
+        userRequestFactory.login(model: requestModel) { [weak self] response in
+            
+            print("Login request with data: \(requestModel)")
             
             DispatchQueue.main.async {
                 self?.viewInput?.enableSubmitButton()
@@ -45,21 +48,25 @@ extension LoginPresenter: LoginViewOutput {
             
             switch response.result {
             case .success(let user):
-                DispatchQueue.main.async {
-                    self?.viewDidSuccessLogin(model: user)
+                print("Login response with data: \(user)")
+                if user.isSuccess() {
+                    DispatchQueue.main.async {
+                        self?.viewDidSuccessLogin(model: user)
+                    }
                 }
-                
                 break
             case .failure(let err):
-                print(err.localizedDescription)
+                print("Login response with error \(err.localizedDescription)")
             }
         }
     }
     
     func viewDidSuccessLogin(model: LoginResponse) {
-        let userProfileViewController = UserProfileViewController()
-        userProfileViewController.userModel = model.user
-        viewInput?.navigationController?.pushViewController(userProfileViewController, animated: true)
+        
+        UserSession.shared.setUser(loginResponse: model)
+        
+        UIApplication.shared.windows[0].rootViewController = TabBarViewController()
+        UIApplication.shared.windows[0].makeKeyAndVisible()
     }
     
     func viewDidMoveToRegistration() {

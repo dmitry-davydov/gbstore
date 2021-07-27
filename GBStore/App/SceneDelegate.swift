@@ -22,14 +22,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let mainViewController = LoginViewController()
         let navigationViewController = UINavigationController(rootViewController: mainViewController)
-//        navigationViewController.setNavigationBarHidden(true, animated: false)
+
         navigationViewController.navigationBar.prefersLargeTitles = true
-//        let mainViewController = RegistrationViewController()
-//        let mainViewController = UserProfileViewController()
-//        mainViewController.userModel = UserResponse(id: 1, login: "login@example.com", name: "User name", lastname: "User lastname")
         window?.rootViewController = navigationViewController
-        window?.makeKeyAndVisible()
-        
+        window?.makeKeyAndVisible()        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

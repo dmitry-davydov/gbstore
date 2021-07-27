@@ -19,7 +19,7 @@ class Basket: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl: URL
+    let baseUrl: String
     
     init(errorParser: AbstractErrorParser, sessionManager: Session, queue: DispatchQueue = DispatchQueue.global(qos: .utility), configurtation: Configuration) {
         self.errorParser = errorParser
@@ -45,7 +45,7 @@ extension Basket: BasketRequestFactory {
 // MARK: - Basket request models
 extension Basket {
     struct BasketAddRequest: RequestRouter {
-        let baseUrl: URL
+        let baseUrl: String
         let method: HTTPMethod = .post
         let path: String = "basket/add"
         
@@ -61,7 +61,7 @@ extension Basket {
     }
     
     struct BasketRemoveRequest: RequestRouter {
-        let baseUrl: URL
+        let baseUrl: String
         let method: HTTPMethod = .post
         let path: String = "basket/remove"
         

@@ -19,7 +19,7 @@ class User: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl: URL
+    let baseUrl: String
     
     init(errorParser: AbstractErrorParser, sessionManager: Session, queue: DispatchQueue = DispatchQueue.global(qos: .utility), configurtation: Configuration) {
         self.errorParser = errorParser
@@ -53,7 +53,7 @@ extension User: UserRequestFactory {
 
 extension User {
     struct Login: RequestRouter {
-        let baseUrl: URL
+        let baseUrl: String
         let method: HTTPMethod = .post
         let path: String = "user/auth"
         
@@ -69,7 +69,7 @@ extension User {
     }
     
     struct Logout: RequestRouter {
-        let baseUrl: URL
+        let baseUrl: String
         let method: HTTPMethod = .post
         let path: String = "user/logout"
         
@@ -83,7 +83,7 @@ extension User {
     }
     
     struct CreateUser: RequestRouter {
-        let baseUrl: URL
+        let baseUrl: String
         let method: HTTPMethod = .post
         let path: String = "user/create"
         
@@ -103,7 +103,7 @@ extension User {
     }
     
     struct UpdateUser: RequestRouter {
-        let baseUrl: URL
+        let baseUrl: String
         let method: HTTPMethod = .post
         let path: String = "user/update"
         

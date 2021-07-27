@@ -39,6 +39,8 @@ extension RegistrationPresenter: RegistrationViewOutput {
         
         viewInput?.disableSubmitButton()
         
+        print("Create user request with data: \(model)")
+        
         userRequestFactory.create(model: model) { [weak self] response in
             
             DispatchQueue.main.async {
@@ -47,12 +49,13 @@ extension RegistrationPresenter: RegistrationViewOutput {
             
             switch response.result {
             case .success(_):
+                print("Create user success response")
                 DispatchQueue.main.async {
                     self?.viewDidMoveToRegistration()
                 }
                 break
             case .failure(let err):
-                print(err.localizedDescription)
+                print("Create user response error \(err.localizedDescription)")
             }
         }
     }
