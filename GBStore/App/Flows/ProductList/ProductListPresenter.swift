@@ -14,6 +14,7 @@ protocol ProductListViewInput {
 
 protocol ProductListViewOutput {
     func viewWillLoadTableData(categoryId: Int, page: Int)
+    func viewWillMoveToProductItem(productId: ProductID)
 }
 
 // MARK: - Presenter class
@@ -42,5 +43,12 @@ extension ProductListPresenter: ProductListViewOutput {
                 print("Product list error response: \(error.localizedDescription)")
             }
         }
+    }
+    
+    func viewWillMoveToProductItem(productId: ProductID) {
+        let productItemViewController = ProductItemViewController()
+        productItemViewController.productId = productId
+        
+        viewInput?.navigationController?.pushViewController(productItemViewController, animated: true)
     }
 }
