@@ -9,7 +9,7 @@ import Foundation
 
 enum UserSessionState {
     case unauthorized
-    case authorizes
+    case authorized
 }
 
 class UserSession {
@@ -25,6 +25,6 @@ class UserSession {
     func setUser(loginResponse: LoginResponse) {
         user = loginResponse.user
         authToken = loginResponse.authToken
-        state = .authorizes
+        state = .authorized
     }
 }

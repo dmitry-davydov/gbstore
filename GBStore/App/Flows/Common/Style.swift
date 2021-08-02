@@ -14,6 +14,8 @@ class FormElementStyle {
     static let topMargin: CGFloat = 12
     static let bottomMargin: CGFloat = 0
     static let viewTopOffset: CGFloat = 20
+    static let tableViewBottomMargin: CGFloat = 12
+    static let tableHeaderLabelBottomMargin: CGFloat = 22
 }
 
 class Style {
