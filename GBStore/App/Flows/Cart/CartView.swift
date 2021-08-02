@@ -26,7 +26,7 @@ class CartView: UIView {
     private let totalLabel = UILabel()
     private let tableHeaderLabel = UILabel()
     private let stackView = UIStackView()
-    private let buyButton = CustomSubmitButton(height: 40, cornerRadius: 4)
+    private let buyButton = CustomSubmitButton(height: FormElementStyle.formItemHeight, cornerRadius: FormElementStyle.cornerRadius)
     
     var delegate: CartViewDelegate?
     
@@ -74,20 +74,22 @@ class CartView: UIView {
         
         stackView.snp.remakeConstraints { make in
             make.top.equalTo(self.safeAreaInsets.top)
-            make.height.equalTo(40)
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
+            make.height.equalTo(FormElementStyle.formItemHeight)
+            make.leading.equalToSuperview().offset(FormElementStyle.leftMargin)
+            make.trailing.equalToSuperview().offset(-FormElementStyle.leftMargin)
         }
         
         tableHeaderLabel.snp.remakeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(22)
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
+            make.top.equalTo(stackView.snp.bottom).offset(FormElementStyle.tableHeaderLabelBottomMargin)
+            make.leading.equalToSuperview().offset(FormElementStyle.leftMargin)
+            make.trailing.equalToSuperview().offset(-FormElementStyle.leftMargin)
         }
         
-        tableView.snp.remakeConstraints { make in
-            make.top.equalTo(tableHeaderLabel.snp.bottom).offset(12)
-            make.bottom.equalTo(self.safeAreaInsets.bottom).offset(-12)
+        tableView.snp.remakeConstraints { [weak self] make in
+            guard let self = self else { return }
+            
+            make.top.equalTo(tableHeaderLabel.snp.bottom).offset(FormElementStyle.tableViewBottomMargin)
+            make.bottom.equalTo(self.safeAreaInsets.bottom).offset(FormElementStyle.tableViewBottomMargin)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
