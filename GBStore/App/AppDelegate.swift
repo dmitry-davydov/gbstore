@@ -12,8 +12,6 @@ import Alamofire
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let requestFactory = RequestFactory()
-    
     let container: Container = {
         let configuration = Configuration()
         let container = Container()
@@ -25,68 +23,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.register(ProductRequestFactory.self) { (_, errorParser: AbstractErrorParser, session: Session, queue: DispatchQueue) in
             return Product(errorParser: errorParser, sessionManager: session, queue: queue, configurtation: configuration)
         }
+        container.register(ReviewsRequestFactory.self) { (_, errorParser: AbstractErrorParser, session: Session, queue: DispatchQueue) in
+            return Reviews(errorParser: errorParser, sessionManager: session, queue: queue, configurtation: configuration)
+        }
+        
+        container.register(UserBasketProtocol.self) { _ in UserBasket() }.inObjectScope(.container)
+        
+        container.register(BasketRequestFactory.self) { (container, errorParser: AbstractErrorParser, session: Session, queue: DispatchQueue) in
+            Basket(errorParser: errorParser, sessionManager: session, queue: queue, configurtation: configuration)
+        }
         
         return container
     }()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        let user = requestFactory.makeUserRequestFatory()
-        
-        // registration
-        user.create(model: CreateUserRequest(
-                        username: "username",
-                        password: "pass",
-                        email: "user@example.com",
-                        gender: .male,
-                        creditCard: "0000-0000-0000-0000",
-                        bio: "Funny guy")
-        ) { response in
-            switch response.result {
-            case .success(let user):
-                print(user)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-        
-        user.login(model: LoginRequest(userName: "username", password: "password")) { response in
-            switch response.result {
-            case .success(let login):
-                print(login)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-        
-        user.update(model: UpdateUserRequest(
-                        id: 123,
-                        username: "username1",
-                        password: "password1",
-                        email: "user1@example.com",
-                        gender: .female,
-                        creditCard: "1111-1111-1111-1111",
-                        bio: "Funny girl")
-        ) { response in
-            switch response.result {
-            case .success(let user):
-                print(user)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-        
-        user.logout(completionHandler: { response in
-            switch response.result {
-            case .success(let logout):
-                print(logout)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        })
-        
-        
-        
         return true
     }
 
@@ -103,7 +53,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
 }
 

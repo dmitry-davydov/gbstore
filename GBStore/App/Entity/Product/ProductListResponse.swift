@@ -21,4 +21,7 @@ struct ProductListItem: Codable {
     }
 }
 
-typealias ProductListResponse = [ProductListItem]
+struct ProductListResponse: Codable {
+    let products: [ProductListItem]
+    let page_number: Int
+}

@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 protocol ProductRequestFactory {
-    func all(page: Int, offset: Int, completionHandler: @escaping(AFDataResponse<ProductListResponse>) -> Void)
+    func all(model: ProductCollectionRequest, completionHandler: @escaping(AFDataResponse<ProductListResponse>) -> Void)
     func one(id: ProductID, completionHandler: @escaping(AFDataResponse<ProductResponse>) -> Void)
 }
 
@@ -17,7 +17,7 @@ class Product: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    let baseUrl: URL
+    let baseUrl: String
     
     init(errorParser: AbstractErrorParser, sessionManager: Session, queue: DispatchQueue = DispatchQueue.global(qos: .utility), configurtation: Configuration) {
         self.errorParser = errorParser
@@ -28,8 +28,8 @@ class Product: AbstractRequestFactory {
 }
 
 extension Product: ProductRequestFactory {
-    func all(page: Int = 0, offset: Int = 20, completionHandler: @escaping (AFDataResponse<ProductListResponse>) -> Void) {
-        let requestModel = AllRequest(baseUrl: baseUrl, page: page, offset: offset)
+    func all(model: ProductCollectionRequest, completionHandler: @escaping (AFDataResponse<ProductListResponse>) -> Void) {
+        let requestModel = AllRequest(baseUrl: baseUrl, model: model)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
@@ -41,25 +41,24 @@ extension Product: ProductRequestFactory {
 
 extension Product {
     struct AllRequest: RequestRouter {
-        let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "catalogData.json"
+        let baseUrl: String
+        let method: HTTPMethod = .post
+        let path: String = "product/all"
         
-        let page: Int
-        let offset: Int
+        let model: ProductCollectionRequest
         
         var parameters: Parameters? {
             return [
-                "page": page,
-                "offset": offset
+                "page_number": model.page,
+                "id_category": model.categoryId
             ]
         }
     }
     
     struct ProductRequest: RequestRouter {
-        let baseUrl: URL
-        let method: HTTPMethod = .get
-        let path: String = "getGoodById.json"
+        let baseUrl: String
+        let method: HTTPMethod = .post
+        let path: String = "product/one"
         
         let productId: ProductID
         

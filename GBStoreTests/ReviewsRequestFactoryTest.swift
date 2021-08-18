@@ -1,39 +1,37 @@
 //
-//  UserRequestFactoryTest.swift
+//  ReviewsRequestFactoryTest.swift
 //  GBStoreTests
 //
-//  Created by Дима Давыдов on 26.06.2021.
+//  Created by Дима Давыдов on 03.07.2021.
 //
 
+import Foundation
 import XCTest
-import Alamofire
 @testable import GBStore
 
-class UserRequestFactoryTest: XCTestCase {
-    
+class ReviewsRequestFactoryTest: XCTestCase {
     var requestFactory: RequestFactory?
     
     override func setUpWithError() throws {
         try super.setUpWithError()
         requestFactory = RequestFactory()
     }
-    
+
     override func tearDownWithError() throws {
-        try super.tearDownWithError()
+        try super.setUpWithError()
         requestFactory = nil
     }
     
-    func getUserRequestFactory() -> UserRequestFactory {
+    func getReviewsRequestFactory() -> ReviewsRequestFactory {
         XCTAssertNotNil(requestFactory)
         
-        return try! XCTUnwrap(requestFactory).makeUserRequestFatory()
+        return try! XCTUnwrap(requestFactory).makeReviewsRequestFavotory()
     }
     
-    func testLogin() {
-        let expectation = expectation(description: "Login")
-        
-        let user = getUserRequestFactory()
-        user.login(model: LoginRequest(userName: "test", password: "test"), completionHandler: { response in
+    func testCreateReview() {
+        let expectation = expectation(description: "Create review")
+        let reviews = getReviewsRequestFactory()
+        reviews.create(model: CreateReviewModel(userId: 1, text: "hui", productId: 1)) { response in
             switch response.result {
             case .success(_):
                 expectation.fulfill()
@@ -41,16 +39,15 @@ class UserRequestFactoryTest: XCTestCase {
             case .failure(let err):
                 XCTFail(err.localizedDescription)
             }
-        })
+        }
         
         waitForExpectations(timeout: 10)
     }
     
-    func testLogout() {
-        let expectation = expectation(description: "Logout")
-        let user = getUserRequestFactory()
-        
-        user.logout(userId: 123) { response in
+    func testApproveReview() {
+        let expectation = expectation(description: "Approve review")
+        let reviews = getReviewsRequestFactory()
+        reviews.approve(commentId: 1) { response in
             switch response.result {
             case .success(_):
                 expectation.fulfill()
@@ -62,10 +59,10 @@ class UserRequestFactoryTest: XCTestCase {
         waitForExpectations(timeout: 10)
     }
     
-    func testCreateUser() {
-        let expectation = expectation(description: "CreateUser")
-        let user = getUserRequestFactory()
-        user.create(model: CreateUserRequest(username: "username", password: "password", email: "email", gender: .female, creditCard: "card", bio: "bio")) { response in
+    func testDeleteReview() {
+        let expectation = expectation(description: "Delete review")
+        let reviews = getReviewsRequestFactory()
+        reviews.delete(commentId: 1) { response in
             switch response.result {
             case .success(_):
                 expectation.fulfill()
@@ -77,10 +74,10 @@ class UserRequestFactoryTest: XCTestCase {
         waitForExpectations(timeout: 10)
     }
     
-    func testUpdateUser() {
-        let expectation = expectation(description: "UpdateUser")
-        let user = getUserRequestFactory()
-        user.update(model: UpdateUserRequest(id: 1, username: "username", password: "password", email: "email", gender: .male, creditCard: "card", bio: "bio")) { response in
+    func testReviewList() {
+        let expectation = expectation(description: "List review")
+        let reviews = getReviewsRequestFactory()
+        reviews.list(page: 0) { response in
             switch response.result {
             case .success(_):
                 expectation.fulfill()

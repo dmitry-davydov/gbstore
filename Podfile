@@ -8,6 +8,8 @@ target 'GBStore' do
   # Pods for GBStore
   pod 'Swinject'
   pod 'Alamofire', '~> 5.2'
+  pod 'PinLayout'
+  pod 'SnapKit', '~> 4.0'
   
   target 'GBStoreTests' do
     inherit! :search_paths
