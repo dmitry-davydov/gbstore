@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 // MARK: - Presenter protocols
 protocol RegistrationViewInput {
@@ -50,12 +51,14 @@ extension RegistrationPresenter: RegistrationViewOutput {
             switch response.result {
             case .success(_):
                 print("Create user success response")
+                Analytics.logEvent(AnalyticsEventSignUp, parameters: nil)
                 DispatchQueue.main.async {
                     self?.viewDidMoveToRegistration()
                 }
                 break
             case .failure(let err):
                 print("Create user response error \(err.localizedDescription)")
+                Crashlytics.crashlytics().record(error: err)
             }
         }
     }

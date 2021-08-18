@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 // MARK: - Presenter protocols
 protocol LoginViewInput {
@@ -50,13 +51,17 @@ extension LoginPresenter: LoginViewOutput {
             case .success(let user):
                 print("Login response with data: \(user)")
                 if user.isSuccess() {
+                    Analytics.logEvent(AnalyticsEventLogin, parameters: nil)
                     DispatchQueue.main.async {
                         self?.viewDidSuccessLogin(model: user)
                     }
+                } else {
+                    Analytics.logEvent("Failed login", parameters: nil)
                 }
                 break
             case .failure(let err):
                 print("Login response with error \(err.localizedDescription)")
+                Crashlytics.crashlytics().record(error: err)
             }
         }
     }

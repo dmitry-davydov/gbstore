@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ProductListViewController: UIViewController {
     private var productList: [Int: [ProductListItem]] = [:]
@@ -30,6 +31,12 @@ class ProductListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         presenter.viewWillLoadTableData(categoryId: 1, page: 0)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        Analytics.logEvent("Open product list", parameters: nil)
     }
 }
 

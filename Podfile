@@ -10,6 +10,8 @@ target 'GBStore' do
   pod 'Alamofire', '~> 5.2'
   pod 'PinLayout'
   pod 'SnapKit', '~> 4.0'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Analytics'
   
   target 'GBStoreTests' do
     inherit! :search_paths

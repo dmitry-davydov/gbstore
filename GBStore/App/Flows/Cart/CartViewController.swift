@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class CartViewController: UIViewController {
     
@@ -97,6 +98,7 @@ extension CartViewController: UITableViewDataSource {
 // MARK: - CartViewDelegate
 extension CartViewController: CartViewDelegate {
     func buyButtonDidTapped(_ sender: UIButton) {
+        Analytics.logEvent("Buy pressed", parameters: nil)
         presenter?.buyButtonPressed()
     }
 }

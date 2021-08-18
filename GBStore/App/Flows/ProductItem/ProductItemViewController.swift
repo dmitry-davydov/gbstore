@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ProductItemViewController: UIViewController {
     
@@ -37,6 +38,12 @@ class ProductItemViewController: UIViewController {
             presenter.viewDidLoadProductItem(productId: productId)
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        Analytics.logEvent("Open product item", parameters: nil)
+    }
 }
 
 // MARK: - Implementation ProductItemViewInput for ProductItemViewController
@@ -54,6 +61,7 @@ extension ProductItemViewController: ProductItemViewInput {
 extension ProductItemViewController: ProductItemViewDelegate {
     func addToCart() {
         if let product = product {
+            Analytics.logEvent("Add to cart", parameters: nil)
             presenter.viewWillAddToCart(product: product)
         }
     }
